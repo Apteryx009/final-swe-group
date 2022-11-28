@@ -27,10 +27,15 @@ def index():
     # TODO: finish project"""
     return render_template('dashboard.html')
 
+@app.route("/trending")
+def trending():
+    # """this function renders the index page of the site
+    # TODO: finish project"""
+    return render_template('trending.html')
 
 
 #with app.app_context():
 #    db.create_all()
 
-if __name__ == "__main__":
-    app.run(debug=True) 
+# if __name__ == "__main__":
+#     app.run(debug=True) 
