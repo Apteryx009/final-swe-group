@@ -34,6 +34,12 @@ def trending():
     return render_template('trending.html')
 
 
+@app.route("/Cal")
+def Cal():
+    # """this function renders the index page of the site
+    # TODO: finish project"""
+    return render_template('Cal.html')
+
 #with app.app_context():
 #    db.create_all()
 
