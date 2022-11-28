@@ -7,6 +7,9 @@
       href="{{url_for('static', filename = 'css/style.css')}}"
       rel="stylesheet"
     />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script> 
+
 </head>
 
 <!--Main Navigation-->
@@ -91,11 +94,12 @@
   <!--Main Navigation-->
   
   <!--Main layout-->
-  <main style="margin-top: 58px;">
+  <main style="margin-top: 58px; background-color: darkgray">
     <div class="container pt-4">
 
+        <h2>Points Earned</h2>
+        <canvas id="myChart"></canvas>
 
-    HTML
 
  
 
@@ -104,6 +108,7 @@
   </main>
   <!--Main layout-->
 
+    <script src="{{url_for('static', filename = 'js/trending.js')}}"></script>
 
 
 </html>
