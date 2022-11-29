@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, \
@@ -13,6 +14,22 @@ db = SQLAlchemy(app)
 
 #login_manager = LoginManager()
 #login_manager.init_app(app)
+
+class endUser(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(200), unique=True, nullable=False)
+    passwordHash = db.Column(db.String(2), nullable=False)
+
+    def __init__(self, username, password):
+        self.username = username
+        self.passwordHash = password
+
+def createUser(new_user, password):
+    """this function creates a new user"""
+    print("called create new user function")
+    user = endUser(new_user, password)
+    db.session.add(user)
+    db.session.commit()
 
 @app.route("/workouts")
 def workout():
@@ -42,5 +59,7 @@ def Cal():
 with app.app_context():
     db.create_all()
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
+    print("test")
+    createUser("johnny test", "ps")
