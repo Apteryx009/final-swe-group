@@ -31,8 +31,8 @@ class UserFeedback(db.Model):
     # movie id, reps, excercise, username
     __tablename__ = "userfeedback"
     id = db.Column(db.Integer, primary_key=True)
-    progress = db.Column(db.Integer, nullable=False)  # fname = username
-    reps = db.Column(db.Integer, nullable=False)
+    progress = db.Column(db.String(999), nullable=False)  # fname = username
+    reps = db.Column(db.String(999), nullable=False)
     excercise = db.Column(db.String(9999), nullable=False)
     username = db.Column(db.String(999), nullable=False)
 
@@ -54,7 +54,7 @@ def workout():
     # TODO: finish project"""
     
     #test data
-    usrfeedback = UserFeedback(0, 10, "bicep stuff", "John Smithhh")
+    usrfeedback = UserFeedback(0, "In-Progress", "bicep stuff", "John Smithhh")
     
     
     #userInfo = json.loads(userInfo)
@@ -75,18 +75,23 @@ def workout2(userInfo):
     # TODO: finish project"""
     
     #test data
-    usrfeedback = UserFeedback(0, 10, "bicep stuff", "John Smithhh")
+    #usrfeedback = UserFeedback(0, 10, "bicep stuff", "John Smithhh")
     
     userInfo = json.loads(userInfo)
     print(userInfo['exercise'])
     
     Exercise = userInfo['exercise']
+    status = "In-progress"
+    username = "AdamSmith345"
+    amountOfReps = "15"
     
+    usrfeedback = UserFeedback(status,amountOfReps,  Exercise, username)
+
     #print(excercise)
     
     
-    #db.session.add(usrfeedback)
-    #db.session.commit()
+    db.session.add(usrfeedback)
+    db.session.commit()
     
     
     return render_template('workouts.html')
