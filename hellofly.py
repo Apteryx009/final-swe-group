@@ -9,6 +9,12 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import find_dotenv, load_dotenv
 
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from bs4 import BeautifulSoup
+import requests
+import json
+
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
@@ -37,9 +43,13 @@ class UserFeedback(db.Model):
         self.username = username
 
 
-
-@app.route("/workouts")
+@app.route("/workouts/")
 def workout():
+    # page = requests.get(":5000").text
+    # soup = BeautifulSoup(page, 'html.parser')
+    # print(soup.prettify())
+        
+        
     # """this function renders the index page of the site
     # TODO: finish project"""
     
@@ -47,11 +57,50 @@ def workout():
     usrfeedback = UserFeedback(0, 10, "bicep stuff", "John Smithhh")
     
     
-    db.session.add(usrfeedback)
-    db.session.commit()
+    #userInfo = json.loads(userInfo)
+    #print(userInfo['exercise'])
+    
+    #print(post_id)
+    
+    
+    #db.session.add(usrfeedback)
+    #db.session.commit()
     
     
     return render_template('workouts.html')
+
+@app.route("/workouts/<string:userInfo>", methods = ['POST'])
+def workout2(userInfo):
+    # """this function renders the index page of the site
+    # TODO: finish project"""
+    
+    #test data
+    usrfeedback = UserFeedback(0, 10, "bicep stuff", "John Smithhh")
+    
+    userInfo = json.loads(userInfo)
+    print(userInfo['exercise'])
+    
+    Exercise = userInfo['exercise']
+    
+    #print(excercise)
+    
+    
+    #db.session.add(usrfeedback)
+    #db.session.commit()
+    
+    
+    return render_template('workouts.html')
+
+
+@app.route('/form', methods = ['GET', 'POST'])
+def form():
+    if request.method == 'POST':
+        Exercise = request.form['Exercise']
+        print(Exercise)
+        return render_template('workouts.html')
+
+
+
 
 @app.route("/")
 def index():
@@ -64,6 +113,16 @@ def trending():
     # """this function renders the index page of the site
     # TODO: finish project"""
     return render_template('trending.html')
+
+# @app.route("/workouts", methods=('GET', 'POST'))
+# def process(request: Request, num: int = Form(...)):
+#     if request.method == 'POST':
+#         form = request.form
+#         print(form['Exercise'])
+#     print(num)
+#     # """this function renders the index page of the site
+#     # TODO: finish project"""
+#     return render_template('workouts.html')
 
 
 @app.route("/Cal")

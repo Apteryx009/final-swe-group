@@ -95,6 +95,12 @@
 
     HTML
 
+
+
+
+
+
+
     <section class="vh-100" style="background-color: #eee;">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -107,13 +113,18 @@
                 <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                   <div class="col-12">
                     <div class="form-outline">
-                      <input type="text" id="form1" class="form-control" />
-                      <label class="form-label" for="form1">Enter a exercise here</label>
+                      <!-- <input type="text" id="form1" class="form-control" />
+                      <label class="form-label" for="form1">Enter a exercise here</label> -->
+                      <form action = "{{ url_for('form') }}" method = "POST">
+                        <p >Exercise <input id="name" type = "text"  name = "Exercise" /></p>
+                         <!-- <p><input type = "submit" value = "submit" /></p> -->
+                     </form>
+                    
                     </div>
                   </div>
     
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" onclick="sendUserInfo()" class="btn btn-primary">Save</button>
                   </div>
     
                   <div class="col-12">
@@ -167,6 +178,20 @@
   </main>
   <!--Main layout-->
 
-
+<script>
+  function sendUserInfo() {
+   let userInput =  document.getElementById("name").value
+    let userInfo = {
+      'exercise':  userInput
+    }
+      const request = new XMLHttpRequest()
+      request.open('POST', `/workouts/${JSON.stringify(userInfo)}`)
+      request.onload = () => {
+        const flaskMsg = request.responseText
+        console.log(flaskMsg)
+      }
+      request.send()
+  }
+</script>
 
 </html>
