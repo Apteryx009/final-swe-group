@@ -11,10 +11,17 @@ load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
 db = SQLAlchemy(app)
 
-#login_manager = LoginManager()
-#login_manager.init_app(app)
+# login manager stuff
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login_page'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return endUser.query.get(int(user_id))
 
 class endUser(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,6 +45,7 @@ def workout():
     return render_template('workouts.html')
 
 @app.route("/")
+@login_required
 def index():
     """this function renders the index page of the site
     """
@@ -67,7 +75,12 @@ def login_page():
         username = flask.request.form.get("username")
         password = flask.request.form.get("password")
 
+        print("username:" + username)
+        print("password:" + password)
+
         user = endUser.query.filter_by(username=username).first()
+        print("user = ")
+        print(user)
         if user:
             if check_password_hash(user.passwordHash, password):
                 login_user(user)
@@ -83,7 +96,7 @@ def login_page():
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
-def create_an_account():
+def signup():
     if flask.request.method == 'GET':
         return render_template('signup.html')
     else:
@@ -91,6 +104,9 @@ def create_an_account():
         password = flask.request.form.get("password")
 
         createUser(username, password)
+
+        flask.flash(f"Successfully created new user {username}")
+        flask.redirect(flask.url_for('login_page'))
 
 
 

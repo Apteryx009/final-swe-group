@@ -1,5 +1,13 @@
 <!doctype html>
 
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }} <br>
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
 <head><title>Log In</title>
     <meta charset=utf-8>
     <link rel="stylesheet" type="text/css" href="/static/style2.css">
@@ -11,23 +19,13 @@
 <h4>Need an account? Sign up!</h4>
 <a href="{{url_for('signup')}}" >Sign Up</a>
 
-
-
-{% with messages = get_flashed_messages() %}
-   {% if messages %}
-      {% for message in messages %}
-         {{ message }}
-      {% endfor %}
-   {% endif %}
-{% endwith %}
-
 <br>
 <form action="/login" method="POST">
     <br>
-    <label for="fname">Username:</label><br>
-    <input type="text" id="fname" name="fname"><br><br>
-    <label for="lname">Password</label><br>
-    <input type="text" id="lname" name="lname"><br><br>
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password</label><br>
+    <input type="password" id="lname" name="password"><br><br>
 
     <br>
     <!-- <label for="pets">Choose your pet:</label>
