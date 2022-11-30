@@ -41,6 +41,24 @@ class UserFeedback(db.Model):
         self.reps = reps
         self.excercise = excercise
         self.username = username
+        
+class userPoints(db.Model):
+    # movie id, reps, excercise, username
+    __tablename__ = "points"
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(999), nullable=False)
+    pointsC = db.Column(db.String(999), nullable=False)
+    pointsI = db.Column(db.String(999), nullable=False)
+    pointsF = db.Column(db.String(999), nullable=False)
+    pointsT = db.Column(db.String(999), nullable=False)
+
+    def __init__(self, username, pointsC, pointsI, pointsF, pointsT):
+        self.username = username
+        self.pointsC = pointsC
+        self.pointsI = pointsI
+        self.pointsF = pointsF
+        self.pointsT = pointsT
+        
 
 
 @app.route("/workouts/")
@@ -48,7 +66,7 @@ def workout():
     # page = requests.get(":5000").text
     # soup = BeautifulSoup(page, 'html.parser')
     # print(soup.prettify())
-        
+    SpecificUserFeedbacks = db.session.query(UserFeedback).all()
         
     # """this function renders the index page of the site
     # TODO: finish project"""
@@ -67,7 +85,7 @@ def workout():
     #db.session.commit()
     
     
-    return render_template('workouts.html')
+    return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks)
 
 @app.route("/workouts/<string:userInfo>", methods = ['POST'])
 def workout2(userInfo):
@@ -78,7 +96,7 @@ def workout2(userInfo):
     #usrfeedback = UserFeedback(0, 10, "bicep stuff", "John Smithhh")
     
     userInfo = json.loads(userInfo)
-    print(userInfo['exercise'])
+    #print(userInfo['exercise'])
     
     Exercise = userInfo['exercise']
     status = "In-progress"
@@ -86,15 +104,29 @@ def workout2(userInfo):
     amountOfReps = "15"
     
     usrfeedback = UserFeedback(status,amountOfReps,  Exercise, username)
+    usrPoints = userPoints('AdamSmith345', 1, 2, 789, 4)
+    
+    historyPoints = db.session.query(userPoints).filter(userPoints.username == "AdamSmith345").first()
+    print(historyPoints.id)
+    historyPoints01 = db.session.query(userPoints).get(historyPoints.id)
+    print(historyPoints01.pointsF)
 
     #print(excercise)
     
-    
+    SpecificUserFeedbacks = db.session.query(UserFeedback).all()
+    #print(int(x) for x in SpecificUserFeedbacks)
+    for x in SpecificUserFeedbacks:
+        print(int(x.reps), x.excercise, x.progress)
+        
+    print(SpecificUserFeedbacks[0].progress)
     db.session.add(usrfeedback)
+    #db.session.add(usrPoints)
     db.session.commit()
     
     
-    return render_template('workouts.html')
+    historyPoints = db.session.query(userPoints).filter(userPoints.username == "AdamSmith345").first()
+    
+    return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks )
 
 
 @app.route('/form', methods = ['GET', 'POST'])
