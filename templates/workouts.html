@@ -117,7 +117,8 @@
                       <label class="form-label" for="form1">Enter a exercise here</label> -->
                       <form action = "{{ url_for('form') }}" method = "POST">
                         <p >Exercise <input id="name" type = "text"  name = "Exercise" /></p>
-                         <!-- <p><input type = "submit" value = "submit" /></p> -->
+                        <p >Reps:    <input id="Reps" type = "text"  name = "Reps" /></p>
+                        <!-- <p><input type = "submit" value = "submit" /></p> -->
                      </form>
                     
                     </div>
@@ -182,8 +183,10 @@
 <script>
   function sendUserInfo() {
    let userInput =  document.getElementById("name").value
+   let Reps =  document.getElementById("Reps").value
     let userInfo = {
-      'exercise':  userInput
+      'exercise':  userInput,
+      'Reps': Reps
     }
       const request = new XMLHttpRequest()
       request.open('POST', `/workouts/${JSON.stringify(userInfo)}`)

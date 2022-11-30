@@ -101,7 +101,7 @@ def workout2(userInfo):
     Exercise = userInfo['exercise']
     status = "In-progress"
     username = "AdamSmith345"
-    amountOfReps = "15"
+    amountOfReps = userInfo['Reps']
     
     usrfeedback = UserFeedback(status,amountOfReps,  Exercise, username)
     usrPoints = userPoints('AdamSmith345', 1, 2, 789, 4)
@@ -133,6 +133,7 @@ def workout2(userInfo):
 def form():
     if request.method == 'POST':
         Exercise = request.form['Exercise']
+        Reps = request.form['Reps']
         print(Exercise)
         return render_template('workouts.html')
 
