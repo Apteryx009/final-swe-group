@@ -117,7 +117,7 @@
                       <label class="form-label" for="form1">Enter a exercise here</label> -->
                       <form action = "{{ url_for('form') }}" method = "POST">
                         <p >Exercise <input id="name" type = "text"  name = "Exercise" /></p>
-                        <p >Reps:    <input id="Reps" type = "text"  name = "Reps" /></p>
+                        <p >Reps!!!!! <input id="Reps" type = "text"  name = "Reps" /></p>
                         <!-- <p><input type = "submit" value = "submit" /></p> -->
                      </form>
                     
@@ -128,9 +128,7 @@
                     <button type="submit" onclick="sendUserInfo()" class="btn btn-primary">Save</button>
                   </div>
     
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-warning">Get tasks</button>
-                  </div>
+              
                 </form>
     
                 <table class="table mb-4">
@@ -152,7 +150,7 @@
                       <td>{{SpecificUserFeedbacks[row].excercise}}</td>
                       <td>{{SpecificUserFeedbacks[row].progress}}</td>
                       <td>
-                        <button id="submitBtn" type="submit" class="btn btn-danger">Delete</button>
+                        <button id="{{row}}"  onclick="sendUserInfo2('{{row}}')" type="submit" class="btn btn-danger">Delete</button>
                         <button id="delBtn" type="submit" class="btn btn-success ms-1">Finished</button>
                       </td>
                     </tr>
@@ -184,12 +182,31 @@
   function sendUserInfo() {
    let userInput =  document.getElementById("name").value
    let Reps =  document.getElementById("Reps").value
+   //let rowNum =  document.getElementById("Reps").value
     let userInfo = {
       'exercise':  userInput,
       'Reps': Reps
     }
       const request = new XMLHttpRequest()
       request.open('POST', `/workouts/${JSON.stringify(userInfo)}`)
+      request.onload = () => {
+        const flaskMsg = request.responseText
+        console.log(flaskMsg)
+      }
+      request.send()
+  }
+
+  //Method overloading
+  function sendUserInfo2(row) {
+    console.log(typeof(row))
+    intRow =  parseInt(row)
+    intRow = intRow + 1 //cause arrays start at zero
+   //let rowNum =  document.getElementById("Reps").value
+    let userInfo = {
+      'row':  row,
+    }
+      const request = new XMLHttpRequest()
+      request.open('POST', `/workouts/${JSON.stringify(intRow)}`)
       request.onload = () => {
         const flaskMsg = request.responseText
         console.log(flaskMsg)

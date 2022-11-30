@@ -118,7 +118,7 @@ def workout2(userInfo):
     for x in SpecificUserFeedbacks:
         print(int(x.reps), x.excercise, x.progress)
         
-    print(SpecificUserFeedbacks[0].progress)
+    #print(SpecificUserFeedbacks[0].progress)
     db.session.add(usrfeedback)
     #db.session.add(usrPoints)
     db.session.commit()
@@ -127,6 +127,34 @@ def workout2(userInfo):
     historyPoints = db.session.query(userPoints).filter(userPoints.username == "AdamSmith345").first()
     
     return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks )
+
+@app.route("/workouts/<int:row2Del>", methods = ['POST'])
+def delete(row2Del):
+    # """this function renders the index page of the site
+    # TODO: finish project"""
+   
+    
+    #userInfo = json.loads(userInfo)
+    print(row2Del)
+    StrRow2Del = str(row2Del)
+    
+
+    SpecificUserFeedbacks = db.session.query(UserFeedback).get(row2Del)
+    print(SpecificUserFeedbacks, " Delete this")
+   
+    db.session.delete(SpecificUserFeedbacks)
+    #db.session.query(UserFeedback).filter(UserFeedback.id == row2Del).delete()
+    
+    #db.session.add(usrPoints)
+    db.session.commit()
+    
+    
+    
+    return render_template('workouts.html')
+
+
+
+
 
 
 @app.route('/form', methods = ['GET', 'POST'])

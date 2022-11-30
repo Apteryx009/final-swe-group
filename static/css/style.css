@@ -22,7 +22,12 @@ h2{
 }
 
 
-
+#saveWorkoutBtn{
+  margin: auto;
+  width: 100%;
+  border: 3px solid green;
+  padding: 3px;
+}
   
 
   #sidebarMenu {
