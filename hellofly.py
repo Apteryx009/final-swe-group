@@ -74,6 +74,7 @@ def workout():
     #test data
     usrfeedback = UserFeedback(0, "In-Progress", "bicep stuff", "John Smithhh")
     
+    print("ayyyyyy")
     
     #userInfo = json.loads(userInfo)
     #print(userInfo['exercise'])
@@ -183,6 +184,10 @@ def finished3():
 
 
 
+
+
+
+
 @app.route('/form', methods = ['GET', 'POST'])
 def form():
     if request.method == 'POST':
@@ -204,7 +209,31 @@ def index():
 def trending():
     # """this function renders the index page of the site
     # TODO: finish project"""
-    return render_template('trending.html')
+    
+    
+    arrInProgress = []
+    arrCompleted = []
+    arrTotal = []
+    
+    listOfInProgressRows = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345",UserFeedback.progress == "In-progress").all()
+    listOfInCompletedRows = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345",UserFeedback.progress == "Finished1").all()
+    ListarrTotal = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345").all()
+    print(listOfInProgressRows, listOfInCompletedRows, arrTotal)
+    
+    #working correctly!
+    print(len(listOfInProgressRows))
+    
+    for index in range(len(listOfInProgressRows)):
+        arrInProgress.append(int(listOfInProgressRows[index].reps))
+    for index in range(len(listOfInCompletedRows)):
+        arrCompleted.append(int(listOfInCompletedRows[index].reps))
+    for index in range(len(ListarrTotal)):
+        arrTotal.append(int(ListarrTotal[index].reps))
+    
+    
+    print(arrTotal)
+    
+    return render_template('trending.html',arrInProgress=arrInProgress,arrCompleted=arrCompleted,arrTotal=arrTotal)
 
 # @app.route("/workouts", methods=('GET', 'POST'))
 # def process(request: Request, num: int = Form(...)):
