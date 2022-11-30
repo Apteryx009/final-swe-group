@@ -136,33 +136,34 @@
                   <thead>
                     <tr>
                       <th scope="col">No.</th>
-                      <th scope="col">Todo item</th>
+                      <th scope="col">Todo Workout</th>
                       <th scope="col">Reps</th>
                       <th scope="col">Status</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
+
+                    {% for row in range(SpecificUserFeedbacks|length) %}
                     <tr>
-                      <th scope="row">1</th>
-                      <td>Pushups</td>
-                      <td>10 (default)</td>
-                      <td>In progress</td>
+                      <th scope="row">{{loop.index}}</th>
+                      <td>{{SpecificUserFeedbacks[row].reps}}</td>
+                      <td>{{SpecificUserFeedbacks[row].excercise}}</td>
+                      <td>{{SpecificUserFeedbacks[row].progress}}</td>
                       <td>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                        <button type="submit" class="btn btn-success ms-1">Finished</button>
+                        <button id="submitBtn" type="submit" class="btn btn-danger">Delete</button>
+                        <button id="delBtn" type="submit" class="btn btn-success ms-1">Finished</button>
                       </td>
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Hammer curls</td>
-                      <td>10 (default)</td>
-                      <td>In progress</td>
-                      <td>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                        <button type="submit" class="btn btn-success ms-1">Finished</button>
-                      </td>
-                    </tr>
+                    {% endfor %}
+
+
+                    <!-- {% for row in SpecificUserFeedbacks %}
+        
+                      <p>{{row}}</p>
+                      
+                    {% endfor %} -->
+                    
                   </tbody>
                 </table>
     

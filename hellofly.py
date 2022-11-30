@@ -66,7 +66,7 @@ def workout():
     # page = requests.get(":5000").text
     # soup = BeautifulSoup(page, 'html.parser')
     # print(soup.prettify())
-        
+    SpecificUserFeedbacks = db.session.query(UserFeedback).all()
         
     # """this function renders the index page of the site
     # TODO: finish project"""
@@ -85,7 +85,7 @@ def workout():
     #db.session.commit()
     
     
-    return render_template('workouts.html')
+    return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks)
 
 @app.route("/workouts/<string:userInfo>", methods = ['POST'])
 def workout2(userInfo):
@@ -113,12 +113,12 @@ def workout2(userInfo):
 
     #print(excercise)
     
-    SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345").all()
+    SpecificUserFeedbacks = db.session.query(UserFeedback).all()
     #print(int(x) for x in SpecificUserFeedbacks)
     for x in SpecificUserFeedbacks:
         print(int(x.reps), x.excercise, x.progress)
         
-    
+    print(SpecificUserFeedbacks[0].progress)
     db.session.add(usrfeedback)
     #db.session.add(usrPoints)
     db.session.commit()
@@ -126,7 +126,7 @@ def workout2(userInfo):
     
     historyPoints = db.session.query(userPoints).filter(userPoints.username == "AdamSmith345").first()
     
-    return render_template('workouts.html', )
+    return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks )
 
 
 @app.route('/form', methods = ['GET', 'POST'])
