@@ -113,10 +113,12 @@ def workout2(userInfo):
 
     #print(excercise)
     
-    SpecificUserFeedbacks = db.session.query(UserFeedback).all()
+    #SpecificUserFeedbacks = db.session.query(UserFeedback).all()
     #print(int(x) for x in SpecificUserFeedbacks)
-    for x in SpecificUserFeedbacks:
-        print(int(x.reps), x.excercise, x.progress)
+    #for x in SpecificUserFeedbacks:
+    #    print(int(x.reps), x.excercise, x.progress)
+    
+     
         
     #print(SpecificUserFeedbacks[0].progress)
     db.session.add(usrfeedback)
@@ -138,6 +140,8 @@ def delete(row2Del):
     print(row2Del)
     StrRow2Del = str(row2Del)
     
+    if row2Del < 0:
+        print("negative num is ", row2Del)
 
     SpecificUserFeedbacks = db.session.query(UserFeedback).get(row2Del)
     print(SpecificUserFeedbacks, " Delete this")
@@ -152,8 +156,30 @@ def delete(row2Del):
     
     return render_template('workouts.html')
 
-
-
+@app.route("/workouts3/<int:row2Del>", methods = ['GET', 'POST'])
+def finished(row2Del):
+    # """this function renders the index page of the site
+    # TODO: finish project"""
+   
+    #don't worry about naming convention
+   
+    print("hi there", row2Del)
+    
+    SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.id == str(row2Del)).with_for_update().one()
+    print(SpecificUserFeedbacks.progress)
+    SpecificUserFeedbacks.progress = "Finished1"
+    #print(SpecificUserFeedbacks.progress)
+  
+    db.session.commit()
+    
+    
+    
+    return render_template('/workouts3/<int:row2Del>',SpecificUserFeedbacks=SpecificUserFeedbacks )
+    
+@app.route("/workouts3/", methods = ['GET', 'POST'])
+def finished3():
+    
+    return render_template('workouts3.html', SpecificUserFeedbacks=SpecificUserFeedbacks)
 
 
 
