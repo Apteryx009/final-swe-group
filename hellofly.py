@@ -1,4 +1,5 @@
 import os
+import flask
 #import flask, render_template
 from flask import Flask, render_template
 import flask_sqlalchemy
@@ -15,17 +16,51 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
-app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://postgres:QO3ze345PPfRfaJ@localhost:5432"
-app.config["SECRET_KEY"] = "super secret key"
+##DuckWorth
+load_dotenv(find_dotenv())
+##
+print( os.environ.get('SQLALCHEMY_DATABASE_URI'))
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 db = SQLAlchemy(app)
 
-#login_manager = LoginManager()
-#login_manager.init_app(app)
 
+
+###DuckWorth
+# login manager stuff
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login_page'
+##
+###########DuckWorth
+@login_manager.user_loader
+def load_user(user_id):
+    return endUser.query.get(int(user_id))
+
+class endUser(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(200), unique=True, nullable=False)
+    passwordHash = db.Column(db.String(500), nullable=False)
+
+    def __init__(self, username, password_hash):
+        self.username = username
+        self.passwordHash = password_hash
+
+def createUser(new_user, password):
+    """this function creates a new user"""
+    user = endUser(new_user, generate_password_hash(password))
+    db.session.add(user)
+    db.session.commit()
+################
+
+
+class keepUsr:
+    def __init__(self, usrStr):
+        self.usrStr = usrStr
+
+usrName = keepUsr("blank")
 
 class UserFeedback(db.Model):
     # movie id, reps, excercise, username
@@ -250,7 +285,62 @@ def trending():
 def Cal():
     # """this function renders the index page of the site
     # TODO: finish project"""
+    print(usrName.usrStr)
     return render_template('Cal.html')
+
+############################DuckWorth
+@app.route("/login", methods=['GET', 'POST'])
+def login_page():
+    if flask.request.method == 'GET':
+        # if method == GET, render login page
+        return render_template('login.html')
+    else:
+        # else, process login
+        # retrieve username and password from form fields
+        username = flask.request.form.get("username")
+        password = flask.request.form.get("password")
+        
+        persistUserName = username
+        usrName.usrStr = persistUserName
+
+
+        print("username:" + username)
+        print("password:" + password)
+
+        user = endUser.query.filter_by(username=username).first()
+        print("user = ")
+        print(user)
+        if user:
+            if check_password_hash(user.passwordHash, password):
+                login_user(user)
+                flask.flash("Login successful.")
+                return flask.redirect(flask.url_for('index', persistUserName=persistUserName))
+            else:
+                flask.flash("Incorrect password")
+        else:
+            flask.flash("User ID does not exist in database.")
+    username=""
+    password=""
+
+    return render_template('login.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if flask.request.method == 'GET':
+        return render_template('signup.html')
+    else:
+        username = flask.request.form.get("username")
+        password = flask.request.form.get("password")
+        
+
+        createUser(username, password)
+        persistUserName = username
+
+        flask.flash(f"Successfully created new user {username}")
+        flask.redirect(flask.url_for('login_page'))
+##########################
+
+
 
 with app.app_context():
     db.create_all()
