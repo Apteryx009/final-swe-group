@@ -201,9 +201,12 @@ def finished(row2Del):
    
     print("hi there", row2Del)
     
-    SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.id == str(row2Del)).with_for_update().one()
-    print(SpecificUserFeedbacks.progress)
-    SpecificUserFeedbacks.progress = "Finished1"
+    #SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.id == str(row2Del)).with_for_update().one()
+    SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.username == usrName.usrStr).all()
+
+    print(row2Del -1)
+    print(SpecificUserFeedbacks[row2Del -1].username)
+    SpecificUserFeedbacks[row2Del -1].progress = "Finished1"
     #print(SpecificUserFeedbacks.progress)
   
     db.session.commit()
