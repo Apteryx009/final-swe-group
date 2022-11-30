@@ -101,7 +101,7 @@ def workout():
     # page = requests.get(":5000").text
     # soup = BeautifulSoup(page, 'html.parser')
     # print(soup.prettify())
-    SpecificUserFeedbacks = db.session.query(UserFeedback).all()
+    SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.username == usrName.usrStr).all()
         
     # """this function renders the index page of the site
     # TODO: finish project"""
@@ -149,14 +149,14 @@ def workout2(userInfo):
 
     #print(excercise)
     
-    SpecificUserFeedbacks = db.session.query(userPoints).filter(userPoints.username == username).all()
+    SpecificUserFeedbacks = db.session.query(UserFeedback).filter(UserFeedback.username == username).all()
     #print(int(x) for x in SpecificUserFeedbacks)
     #for x in SpecificUserFeedbacks:
-    #    print(int(x.reps), x.excercise, x.progress)
+    #    print(int(x.reps), x.excercise, x.progress, x.username)
     
      
         
-    #print(SpecificUserFeedbacks[0].progress)
+    print(SpecificUserFeedbacks)
     db.session.add(usrfeedback)
     #db.session.add(usrPoints)
     db.session.commit()
