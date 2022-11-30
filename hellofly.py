@@ -107,7 +107,7 @@ def workout():
     # TODO: finish project"""
     
     #test data
-    usrfeedback = UserFeedback(0, "In-Progress", "bicep stuff", "John Smithhh")
+    usrfeedback = UserFeedback(0, "In-Progress", "bicep stuff", usrName.usrStr)
     
     print("ayyyyyy")
     
@@ -136,20 +136,20 @@ def workout2(userInfo):
     
     Exercise = userInfo['exercise']
     status = "In-progress"
-    username = "AdamSmith345"
+    username = usrName.usrStr
     amountOfReps = userInfo['Reps']
     
     usrfeedback = UserFeedback(status,amountOfReps,  Exercise, username)
-    usrPoints = userPoints('AdamSmith345', 1, 2, 789, 4)
+    usrPoints = userPoints(usrName.usrStr, 1, 2, 789, 4)
     
-    historyPoints = db.session.query(userPoints).filter(userPoints.username == "AdamSmith345").first()
-    print(historyPoints.id)
-    historyPoints01 = db.session.query(userPoints).get(historyPoints.id)
-    print(historyPoints01.pointsF)
+    #historyPoints = db.session.query(userPoints).filter(userPoints.username == username).first()
+    #print(historyPoints.id)
+    #historyPoints01 = db.session.query(userPoints).get(historyPoints.id)
+    #print(historyPoints01.pointsF)
 
     #print(excercise)
     
-    #SpecificUserFeedbacks = db.session.query(UserFeedback).all()
+    SpecificUserFeedbacks = db.session.query(userPoints).filter(userPoints.username == username).all()
     #print(int(x) for x in SpecificUserFeedbacks)
     #for x in SpecificUserFeedbacks:
     #    print(int(x.reps), x.excercise, x.progress)
@@ -162,7 +162,7 @@ def workout2(userInfo):
     db.session.commit()
     
     
-    historyPoints = db.session.query(userPoints).filter(userPoints.username == "AdamSmith345").first()
+    historyPoints = db.session.query(userPoints).filter(userPoints.username == usrName.usrStr).first()
     
     return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks )
 
@@ -250,9 +250,9 @@ def trending():
     arrCompleted = []
     arrTotal = []
     
-    listOfInProgressRows = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345",UserFeedback.progress == "In-progress").all()
-    listOfInCompletedRows = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345",UserFeedback.progress == "Finished1").all()
-    ListarrTotal = db.session.query(UserFeedback).filter(UserFeedback.username == "AdamSmith345").all()
+    listOfInProgressRows = db.session.query(UserFeedback).filter(UserFeedback.username == usrName.usrStr,UserFeedback.progress == "In-progress").all()
+    listOfInCompletedRows = db.session.query(UserFeedback).filter(UserFeedback.username == usrName.usrStr,UserFeedback.progress == "Finished1").all()
+    ListarrTotal = db.session.query(UserFeedback).filter(UserFeedback.username == usrName.usrStr).all()
     print(listOfInProgressRows, listOfInCompletedRows, arrTotal)
     
     #working correctly!
