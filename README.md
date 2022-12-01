@@ -11,6 +11,10 @@ Flask, postgres, Python, Javascript, ChartJS, Fly.io, SHA256 Password Hashing
  ##Live Link
 https://lingering-glitter-4325.fly.dev/
 
+If you want to see what an active account would look like (and don't feel like creating an account), use:
+demo@gmail.com
+password: 123
+
 #Things we have enjoyed or learned
 We enjoyed personalizing data to each user
 We enjoyed making the website pretty!
