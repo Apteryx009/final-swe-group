@@ -9,7 +9,6 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
     current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import find_dotenv, load_dotenv
-
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from bs4 import BeautifulSoup
@@ -29,6 +28,7 @@ db = SQLAlchemy(app)
 
 
 ###DuckWorth
+
 # login manager stuff
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -260,15 +260,13 @@ def form():
         return render_template('workouts.html')
 
 
-
-
 @app.route("/")
+@login_required
 def index():
-    # """this function renders the index page of the site
-    # TODO: finish project"""
     return render_template('dashboard.html')
 
 @app.route("/trending")
+@login_required
 def trending():
     # """this function renders the index page of the site
     # TODO: finish project"""
@@ -317,6 +315,7 @@ def account():
 
 
 @app.route("/Cal")
+@login_required
 def Cal():
     # """this function renders the index page of the site
     # TODO: finish project"""
@@ -337,7 +336,6 @@ def login_page():
         
         persistUserName = username
         usrName.usrStr = persistUserName
-
 
         print("username:" + username)
         print("password:" + password)
@@ -366,19 +364,15 @@ def signup():
     else:
         username = flask.request.form.get("username")
         password = flask.request.form.get("password")
-        
 
         createUser(username, password)
         persistUserName = username
 
         flask.flash(f"Successfully created new user {username}")
         flask.redirect(flask.url_for('login_page'))
-##########################
 
 
 
 with app.app_context():
     db.create_all()
 
-# if __name__ == "__main__":
-#     app.run(debug=True) 
