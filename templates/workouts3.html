@@ -16,24 +16,16 @@
           <div class="position-sticky">
             <div class="list-group list-group-flush mx-3 mt-4">
               <a
-              href="/login"
-              class="list-group-item list-group-item-action py-2 ripple"
-              aria-current="true"
-            >
-              <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Login</span>
-            </a>
-              
-              <a
                 href="/"
                 class="list-group-item list-group-item-action py-2 ripple"
                 aria-current="true"
               >
                 <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
               </a>
-              <a href="/workouts" class="list-group-item list-group-item-action py-2 ripple  ">
+              <a href="/" class="list-group-item list-group-item-action py-2 ripple  ">
                 <i class="fas fa-chart-area fa-fw me-3"></i><span>Workouts</span>
               </a>
-              <a href="/trending" class="list-group-item list-group-item-action py-2 ripple"
+              <a href="trending" class="list-group-item list-group-item-action py-2 ripple"
                 ><i class="fas fa-lock fa-fw me-3"></i><span>Trending</span></a
               >
              
@@ -225,7 +217,7 @@
   //If user has finished task
   function sendUserInfo3(row) {
     console.log(typeof(row))
-    console.log( row)
+    //console.log( row)
     intRow =  parseInt(row)
     intRow = intRow +1//cause arrays start at zero
    //let rowNum =  document.getElementById("Reps").value

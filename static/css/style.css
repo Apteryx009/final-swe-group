@@ -12,6 +12,16 @@ body {
 
 }
 
+.list-group-item {
+  opacity: 0.9;
+}
+
+
+.list-group-item:hover {
+  opacity: 1.0;
+  background-color: #0e24a4;
+}
+
 h2{
   font-size: 70px;
   font-weight: 600;
@@ -21,8 +31,22 @@ h2{
   -webkit-background-clip: text;
 }
 
+h3{
+  font-size: 40px;
+  font-weight: 600;
+  background-image: linear-gradient(to left, #0e24a4, #b393d3);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
 
 
+#saveWorkoutBtn{
+  margin: auto;
+  width: 100%;
+  border: 3px solid green;
+  padding: 3px;
+}
   
 
   #sidebarMenu {

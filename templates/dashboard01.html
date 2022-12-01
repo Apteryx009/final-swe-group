@@ -15,10 +15,13 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-          <a href="login" class="list-group-item list-group-item-action py-2 ripple">
-            <i class="fas fa-chart-area fa-fw me-3"></i><span>Login</span>
-          </a>
-          
+          <a
+          href="/login"
+          class="list-group-item list-group-item-action py-2 ripple"
+          aria-current="true"
+        >
+          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Login</span>
+        </a>
           <a
             href="/"
             class="list-group-item list-group-item-action py-2 ripple"
@@ -37,7 +40,7 @@
           <a href="Cal" class="list-group-item list-group-item-action py-2 ripple"
             ><i class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a
           >
-          <a href="Account" class="list-group-item list-group-item-action py-2 ripple"
+          <a href="account" class="list-group-item list-group-item-action py-2 ripple"
             ><i class="fas fa-users fa-fw me-3"></i><span>Account</span></a
           >
           
@@ -71,6 +74,7 @@
             alt="Fitness Tracker"
             loading="lazy"
           />
+          
         </a>
         <!-- Search form -->
         <!-- <form class="d-none d-md-flex input-group w-auto my-auto">
@@ -99,8 +103,8 @@
     <div class="container">
       <!--Section: Content-->
       <section class="text-center">
-        <!-- <h4 class="mb-5"><strong>Latest posts</strong></h4> -->
-        <h3>Make Sure to login to take advantage of personlized features!</h3>
+        <h4 class="mb-5"><strong>Latest posts</strong></h4>
+
         <div class="row">
           <div class="col-lg-4 col-md-12 mb-4">
             <div class="card">
@@ -111,12 +115,12 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Is cardio killing your gains?</h5>
+                <h5 class="card-title">Post title</h5>
                 <p class="card-text">
-                  In this post, we examine what the experts have to say about cardio, and whether
-                  or not it's killing your gains.
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
                 </p>
-                <a href="{{url_for('blog1')}}" class="btn btn-primary">Read</a>
+                <a href="#!" class="btn btn-primary">Read</a>
               </div>
             </div>
           </div>
@@ -130,12 +134,12 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">How do I build muscle?</h5>
+                <h5 class="card-title">Post title</h5>
                 <p class="card-text">
-                  In this post, we examine how muscle is built, and what you need to be doing to
-                  consistently be making gains.
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
                 </p>
-                <a href="{{url_for('blog2')}}" class="btn btn-primary">Read</a>
+                <a href="#!" class="btn btn-primary">Read</a>
               </div>
             </div>
           </div>
@@ -149,18 +153,37 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">How often do I need to work out?</h5>
+                <h5 class="card-title">Post title</h5>
                 <p class="card-text">
-                  In this post, we examine what the prevailing research says about how often to work
-                  out to get those sweet gainz
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
                 </p>
-                <a href="{{url_for('blog3')}}" class="btn btn-primary">Read</a>
+                <a href="#!" class="btn btn-primary">Read</a>
               </div>
             </div>
           </div>
         </div>
 
         <div class="row">
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="https://mdbootstrap.com/img/new/standard/nature/002.jpg" class="img-fluid" />
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Post title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
+                </p>
+                <a href="#!" class="btn btn-primary">Read</a>
+              </div>
+            </div>
+          </div>
+
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
               <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
@@ -170,18 +193,39 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">What are some high protein foods?</h5>
+                <h5 class="card-title">Post title</h5>
                 <p class="card-text">
-                  In this post, we examine some common foods that are high in protein
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
                 </p>
-                <a href="{{url_for('blog4')}}" class="btn btn-primary">Read</a>
+                <a href="#!" class="btn btn-primary">Read</a>
               </div>
             </div>
           </div>
 
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="https://mdbootstrap.com/img/new/standard/nature/035.jpg" class="img-fluid" />
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Post title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
+                </p>
+                <a href="#!" class="btn btn-primary">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <!--Section: Content-->
 
-      <!-- Pagination
+      <!-- Pagination -->
       <nav class="my-4" aria-label="...">
         <ul class="pagination pagination-circle justify-content-center">
           <li class="page-item">
@@ -196,13 +240,13 @@
             <a class="page-link" href="#">Next</a>
           </li>
         </ul>
-      </nav> -->
+      </nav>
     </div>
   </main>
   <!--Main layout-->
   </main>
   <!--Main layout-->
-
+  <p>Hello {{persistUserName}}</p>
 
 
 </html>
