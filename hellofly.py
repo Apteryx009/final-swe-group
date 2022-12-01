@@ -39,19 +39,38 @@ def createUser(new_user, password):
     db.session.commit()
 
 @app.route("/workouts")
+@login_required
 def workout():
     """this function renders the index page of the site
     """
     return render_template('workouts.html')
 
+@app.route("/blog1")
+@login_required
+def blog1():
+    return render_template('blog1.html')
+
+@app.route("/blog2")
+@login_required
+def blog2():
+    return render_template('blog2.html')
+
+@app.route("/blog3")
+@login_required
+def blog3():
+    return render_template('blog3.html')
+
+@app.route("/blog4")
+def blog4():
+    return render_template('blog4.html')
+
 @app.route("/")
 @login_required
 def index():
-    """this function renders the index page of the site
-    """
     return render_template('dashboard.html')
 
 @app.route("/trending")
+@login_required
 def trending():
     # """this function renders the index page of the site
     # """
@@ -59,6 +78,7 @@ def trending():
 
 
 @app.route("/Cal")
+@login_required
 def Cal():
     # """this function renders the index page of the site
     # """
