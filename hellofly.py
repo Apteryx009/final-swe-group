@@ -273,6 +273,13 @@ def trending():
     
     return render_template('trending.html',arrInProgress=arrInProgress,arrCompleted=arrCompleted,arrTotal=arrTotal)
 
+
+@app.route("/account")
+def account():
+    #stuff
+    username01 = usrName.usrStr
+    return render_template('account.html',username01=username01 )
+
 # @app.route("/workouts", methods=('GET', 'POST'))
 # def process(request: Request, num: int = Form(...)):
 #     if request.method == 'POST':

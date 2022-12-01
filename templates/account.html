@@ -7,6 +7,10 @@
       href="{{url_for('static', filename = 'css/style.css')}}"
       rel="stylesheet"
     />
+    <link
+    href="{{url_for('static', filename = 'css/account.css')}}"
+    rel="stylesheet"
+  />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script> 
 
@@ -104,12 +108,62 @@
   <!--Main Navigation-->
   
   <!--Main layout-->
-  <main style="margin-top: 58px; background-color: darkgray">
+  <main style="margin-top: 58px;">
     <div class="container pt-4">
 
-        <h2>Points Earned</h2>
-        <canvas id="myChart"></canvas>
+        <h2 id="account">Account</h2>
+        
+        <div class="container mt-5 d-flex justify-content-center">
 
+            <div class="card p-3">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="image">
+                <img style="padding-right: 2em;"src="https://media1.giphy.com/media/l3q314cYImR8eIkJa/200w.gif?cid=82a1493bdmtd5eojn7992k9wk5j3gh0eczraamw62wobaeqd&rid=200w.gif&ct=g" class="rounded" width="155" >
+                </div>
+
+                <div class="ml-3 w-100">
+                    
+                   <h4 class="mb-0 mt-0">{{username01}}</h4>
+                   <span>Rookie Gym Member</span>
+
+                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+
+                    <div class="d-flex flex-column">
+
+                        <span class="articles">Total Points</span>
+                        <span class="number1">38</span>
+                        
+                    </div>
+
+
+                    <div class="d-flex flex-column">
+
+                        <span class="rating">Average Days Active Per Week</span>
+                        <span class="number3">2.6</span>
+                        
+                    </div>
+                       
+                   </div>
+
+
+                   <div class="button mt-2 d-flex flex-row align-items-center">
+
+                  
+
+                       
+                   </div>
+
+
+                </div>
+
+                    
+                </div>
+                
+            </div>
+             
+         </div>
 
  
 
