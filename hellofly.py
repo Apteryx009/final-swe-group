@@ -1,9 +1,14 @@
 import os
 import flask
-from flask import Flask, render_template
+import datetime
+from flask import Flask, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, \
     current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+from wtforms.widgets import TextArea
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import find_dotenv, load_dotenv
 
@@ -32,11 +37,38 @@ class endUser(db.Model, UserMixin):
         self.username = username
         self.passwordHash = password_hash
 
+class discussion_posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    datetime_posted = db.Column(db.DateTime, default=datetime.datetime.now)
+    content = db.Column(db.Text)
+    author = db.Column(db.String(255))
+
+class discussion_posts_form(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    content = StringField("Content", validators=[DataRequired()], widget=TextArea())
+    submit = SubmitField("Submit")
+
 def createUser(new_user, password):
     """this function creates a new user"""
     user = endUser(new_user, generate_password_hash(password))
     db.session.add(user)
     db.session.commit()
+
+@app.route("/discussion", methods=['GET', 'POST'])
+def discussion():
+    form = discussion_posts_form()
+
+    if form.validate_on_submit():
+        post = discussion_posts(title=form.title.data, content=form.content.data)
+        form.title.data = ""
+        form.content.data = ""
+
+        db.session.add(post)
+        db.session.commit()
+
+        flash("Post added successfully!")
+        
+    return render_template('discussion.html', form=form)
 
 @app.route("/workouts")
 def workout():
