@@ -123,6 +123,31 @@ def workout():
     
     return render_template('workouts.html', SpecificUserFeedbacks=SpecificUserFeedbacks)
 
+
+##Duckworth
+@app.route("/blog1")
+@login_required
+def blog1():
+    return render_template('blog1.html')
+
+@app.route("/blog2")
+@login_required
+def blog2():
+    return render_template('blog2.html')
+
+@app.route("/blog3")
+@login_required
+def blog3():
+    return render_template('blog3.html')
+
+@app.route("/blog4")
+def blog4():
+    return render_template('blog4.html')
+###########
+
+
+
+
 @app.route("/workouts/<string:userInfo>", methods = ['POST'])
 def workout2(userInfo):
     # """this function renders the index page of the site
